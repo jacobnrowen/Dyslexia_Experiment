@@ -6,14 +6,14 @@ import glob
 import random
 
 test_types = ['BareVowel','SameCons','DiffCons','Words']
-tests_per_typ = ...
+tests_per_typ = 25
 data_rows = []
 
 def play_vowls(fname_a, fname_b):
 	winsound.PlaySound(fname_a, winsound.SND_FILENAME)
-	time.sleep(3)
+	time.sleep(0.5)
 	winsound.PlaySound(fname_b, winsound.SND_FILENAME)
-	time.sleep(1)
+	time.sleep(0.25)
 
 def ask_about(data_logger, fname_a, fname_b, test_type, vowl_name, is_same, other_vowl = None):
 	print('----------')
@@ -35,12 +35,13 @@ def ask_about(data_logger, fname_a, fname_b, test_type, vowl_name, is_same, othe
 
 for typ in test_types:
 	all_sounds = glob.glob('recordings/'+typ+'*')
-	all_vowels = { i[len(typ)+1:i.rfind('_')] for i in all_sounds }
+	all_vowels = list({ i[i.find(typ)+len(typ)+1:i.rfind('_')] for i in all_sounds })
 	print('This is the start of a new section of the experiment.')
 	for i in range(tests_per_typ):
 		if random.choice([True, False]):
 			vowl = random.choice(all_vowels)
-			fnames = random.shuffle( glob.glob('recordings/'+typ + '_' + vowl + '_*') )
+			fnames = glob.glob('recordings/'+typ + '_' + vowl + '_*')
+			random.shuffle(fnames)
 			ask_about(data_rows, fnames[0], fnames[1], typ, vowl, True)
 		else:
 			vowels = random.sample(all_vowels, 2)
