@@ -34,17 +34,17 @@ def ask_about(data_logger, fname_a, fname_b, test_type, vowl_name, is_same, othe
 		data_logger.append( [test_type, vowl_name, other_vowl, is_correct, fname_a, fname_b] )
 
 for typ in test_types:
-	all_sounds = glob.glob(typ+'*')
+	all_sounds = glob.glob('recordings/'+typ+'*')
 	all_vowels = { i[len(typ)+1:i.rfind('_')] for i in all_sounds }
 	print('This is the start of a new section of the experiment.')
 	for i in range(tests_per_typ):
 		if random.choice([True, False]):
 			vowl = random.choice(all_vowels)
-			fnames = random.shuffle( glob.glob(typ + '_' + vowl + '_*') )
+			fnames = random.shuffle( glob.glob('recordings/'+typ + '_' + vowl + '_*') )
 			ask_about(data_rows, fnames[0], fnames[1], typ, vowl, True)
 		else:
 			vowels = random.sample(all_vowels, 2)
-			fnames = [ random.choice(glob.glob(typ + '_' + v + '_*')) for v in vowels]
+			fnames = [ random.choice('recordings/'+glob.glob(typ + '_' + v + '_*')) for v in vowels]
 			ask_about(data_rows, fnames[0], fnames[1], typ, vowels[0], False, vowels[1])
 	print("This is the end of a section of the experiment. Type OK when ready to proceed.")
 	while input() != 'OK':
