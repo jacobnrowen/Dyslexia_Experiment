@@ -44,7 +44,7 @@ for typ in test_types:
 			ask_about(data_rows, fnames[0], fnames[1], typ, vowl, True)
 		else:
 			vowels = random.sample(all_vowels, 2)
-			fnames = [ random.choice('recordings/'+glob.glob(typ + '_' + v + '_*')) for v in vowels]
+			fnames = [ random.choice(glob.glob('recordings/'+typ + '_' + v + '_*')) for v in vowels]
 			ask_about(data_rows, fnames[0], fnames[1], typ, vowels[0], False, vowels[1])
 	print("This is the end of a section of the experiment. Type OK when ready to proceed.")
 	while input() != 'OK':
