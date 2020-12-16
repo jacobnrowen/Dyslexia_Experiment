@@ -28,7 +28,7 @@ def ask_about(data_logger, fname_a, fname_b, test_type, vowl_name, is_same, othe
 			play_vowls(fname_a, fname_b)
 	if is_same:
 		is_correct = answer == 'same'
-		data_logger.append( [test_type, vowl_name, 'N/A', is_correct] )
+		data_logger.append( [test_type, vowl_name, 'N/A', is_correct, fname_a, fname_b] )
 	else:
 		is_correct = answer == 'different'
 		data_logger.append( [test_type, vowl_name, other_vowl, is_correct, fname_a, fname_b] )
