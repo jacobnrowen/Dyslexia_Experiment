@@ -32,6 +32,9 @@ def ask_about(data_logger, fname_a, fname_b, test_type, vowl_name, is_same, othe
 	else:
 		is_correct = answer == 'different'
 		data_logger.append( [test_type, vowl_name, other_vowl, is_correct, fname_a, fname_b] )
+print("This is the start of the experiment. Type OK when you are ready to start.")
+while input() != 'OK':
+		print('Type OK when ready to proceed.')
 
 for typ in test_types:
 	all_sounds = glob.glob('recordings/'+typ+'*')
