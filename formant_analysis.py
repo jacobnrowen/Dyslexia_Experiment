@@ -20,18 +20,14 @@ def get_formants(s, vowel_time):
 	formant = s.to_formant_burg()
 	return [formant.get_value_at_time(i, vowel_time) for i in [1,2,3]]
 
-def my_log(fname, formants):
-	word = (fname[fname.find('\\')+1:]).split('.')[0]
-	return [word, ''] + formants
-
-folders = ['Talker1','Talker2','Talker3']
-for j in folders:
-	files = glob.glob(j+'/'+'*.wav')
+vowels = ['a','æ','eɪ','ɛ','i','ɪ','oʊ','u','ʊ','ʌ']
+for v in vowels:
+	files = glob.glob('recordings/*_'+v+'_*')
 	results = []
 	for i in files:
 		s = parselmouth.Sound(i)
 		vowel_time = find_peak_prom(s.to_intensity())
-		print(i,vowel_time)
-		results.append(my_log(i, get_formants(s, vowel_time)))
-	df = pd.DataFrame(results, columns = ['Word', 'Vowel', 'F1', 'F2', 'F3'])
-	df.to_csv('C:\\Users\\0to9a\\Desktop\\HW4\\'+j+'.csv')
+		results.append([i]+get_formants(s, vowel_time))
+	df = pd.DataFrame(results, columns = ['File', 'F1', 'F2', 'F3'])
+	df.to_csv('Vowel Formants/'+v+' formants.csv')
+	print(v,'done')
